@@ -21,6 +21,7 @@ function App() {
   }
   var [GlcmColour, setGlcmColour] = useState(colourGlcm);
 
+
   var [randomMatrix, setRandomMatrix] = useState(MakeRandomMatrix(6, 5));
 
   var setMatrix = () => {
@@ -48,14 +49,30 @@ function App() {
   }
   var [inputColour, setInputColour] = useState(initialInputColour)
 
+
   return (
     <div className="App">
+      <div>
+
       <h1 className='row justify-content-md-center p-5'>GLCM</h1>
-      <SetMatrix cols={cols} rows={rows} customCols={customCols} customRows={customRows} setMatrix={setMatrix} />
-      <GlcmProperties degree={degree} setDegree={setDegree} distance={distance} setDistance={setDistance} rows={rows} cols={cols} />
-      <br />
-      <Glcm randomMatrix={randomMatrix} degree={degree} distance={distance} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour} inputColour={inputColour} setInputColour={setInputColour} />
+
+
+
+        <SetMatrix cols={cols} rows={rows} customCols={customCols} customRows={customRows} setMatrix={setMatrix} />
+        <GlcmProperties degree={degree} setDegree={setDegree} distance={distance} setDistance={setDistance} rows={rows} cols={cols} />
+        <div className='container'>
+          <div className='row'>
+            <div className="col-12">
+              <div className="form-outline">
+                <Glcm randomMatrix={randomMatrix} degree={degree} distance={distance} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour} inputColour={inputColour} setInputColour={setInputColour} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
+
 export default App;

@@ -1,16 +1,5 @@
 import { useState } from "react";
 var Glcm = (params) => {
-    // var [glcmArray, setGlcmArray] = useState([
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0]
-    // ]);
-
     var glcmArray = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -58,8 +47,8 @@ var Glcm = (params) => {
             if (params.degree === 0) {
                 for (i = 0; i < params.randomMatrix.length; i++)
                     for (j = 0; j < params.randomMatrix[i].length - params.distance + 1; j++) {
-                        c = params.randomMatrix[i][j];
-                        r = params.randomMatrix[i][j + params.distance - 1];
+                        r = params.randomMatrix[i][j];
+                        c = params.randomMatrix[i][j + params.distance - 1];
                         if (c !== undefined)
                             matrix[r - 1][c - 1] += 1;
                     }
@@ -105,7 +94,7 @@ var Glcm = (params) => {
                     if (params.degree === 0) {
                         for (q = 0; q < params.randomMatrix.length; q++) {
                             for (w = 0; w < params.randomMatrix[q].length - params.distance + 1; w++) {
-                                if (params.randomMatrix[q][w] === j + 1 && params.randomMatrix[q][w + params.distance - 1] === i + 1) {
+                                if (params.randomMatrix[q][w] === i + 1 && params.randomMatrix[q][w + params.distance - 1] === j + 1) {
                                     inputColour[q][w] = params.GlcmColour[i][j];
                                     inputColour[q][w + params.distance - 1] = params.GlcmColour[i][j];
                                 }
@@ -174,72 +163,262 @@ var Glcm = (params) => {
     }
 
     return (
-        <div id="input">
-            <div>
-                <div>
-                    <button onClick={clearColour} className="btn btn-warning align-self-start">Reset</button>
+        <div className="container">
+
+            {/* <div className="row justify-content-center">
+                <div className="col-md-12">
+                    <div className="mb-12">
+                        <button onClick={clearColour} className="btn btn-warning align-self-start">Reset</button>
+                    </div>
                 </div>
-                <table style={{ 'margin': '20px' }}>
-                    <tbody>
-                        {params.randomMatrix.map((item, index) => {
-                            return (
-                                <tr key={index}>
-                                    {item.map((innerItem, innerIndex) => {
-                                        if (inputColour[index] === undefined) {
-                                            let inner = []
-                                            for (var qq = 0; qq < innerItem.length; qq++)
-                                                inner.push("#FFFFFF");
-                                            inputColour.push(inner);
-                                        }
-                                        var string = index + "_" + innerIndex
-                                        return (
-                                            <td key={string}
-                                                bgcolor={inputColour[index][innerIndex]}
-                                                style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
-                                            >
-                                                {innerItem}
-                                            </td>
-                                        )
-                                    })}
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <table style={{ 'margin': '20px' }}>
-                    <tbody>
-                        <tr key="column_number">
-                            {
-                                glcmArray[0].map((item, index) =>
-                                    <td key={index} style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+            </div> */}
+
+            <div className="row justify-content-center">
+
+                <div className="col-md-12" align='center'>
+                    <div className="mb-12">
+                        <button onClick={clearColour} className="btn btn-warning align-self-start">Reset</button>
+                    </div>
+                </div>
+
+                <div className="col-6" align='center'>
+                    <table style={{ 'margin': '20px' }}>
+                        <tbody>
+                            <tr key="column_number">
+                                {
+                                    params.randomMatrix[0].map((item, index) =>
+                                        <td key={index} style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+                                    )
+                                }
+                            </tr>
+                            {params.randomMatrix.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        {item.map((innerItem, innerIndex) => {
+                                            if (inputColour[index] === undefined) {
+                                                let inner = []
+                                                for (var qq = 0; qq < innerItem.length; qq++)
+                                                    inner.push("#FFFFFF");
+                                                inputColour.push(inner);
+                                            }
+                                            var string = index + "_" + innerIndex
+                                            return (
+                                                <td key={string}
+                                                    bgcolor={inputColour[index][innerIndex]}
+                                                    style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+                                                >
+                                                    {innerItem}
+                                                </td>
+                                            )
+                                        })}
+                                        <td key="row_number" style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+                                    </tr>
                                 )
-                            }
-                        </tr>
-                        {glcmArray.map((item, index) => {
-                            return (
-                                <tr key={index}>
-                                    {item.map((innerItem, innerIndex) => {
-                                        var string = index + "_" + innerIndex
-                                        return (
-                                            <td key={string}
-                                                style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
-                                                bgcolor={params.GlcmColour[index][innerIndex]}
-                                                onClick={() => changeColour(index, innerIndex)}
-                                            >
-                                                {innerItem}
-                                            </td>
-                                        )
-                                    })}
-                                    <td key="row_number" style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="col-6" align='center'>
+                    <table style={{ 'margin': '20px' }}>
+                        <tbody>
+                            <tr key="column_number">
+                                {
+                                    glcmArray[0].map((item, index) =>
+                                        <td key={index} style={{ 'padding': '10px', 'margin': '0px' }}>
+                                            {index + 1}
+                                        </td>
+                                    )
+                                }
+                            </tr>
+                            {glcmArray.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        {item.map((innerItem, innerIndex) => {
+                                            var string = index + "_" + innerIndex
+                                            return (
+                                                <td key={string}
+                                                    style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+                                                    bgcolor={params.GlcmColour[index][innerIndex]}
+                                                    onClick={() => changeColour(index, innerIndex)}
+                                                >
+                                                    {innerItem}
+                                                </td>
+                                            )
+                                        })}
+                                        <td key="row_number" style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
-        </div>)
+        </div>
+
+
+        // </div>
+
+
+
+
+
+        // <div className="submit-form">
+        //   <div className="container">
+        //     <div className="row justify-content-md-center">
+
+        //       <div className="col-md-12">
+        //         <div className="mb-12">
+        //           <h2>GLCM Properties</h2>
+        //         </div>
+        //       </div>
+
+        //       <div className='col-md-6' align='center'>
+
+        //       <table style={{ 'margin': '20px' }}>
+        //                 <tbody>
+        //                     {params.randomMatrix.map((item, index) => {
+        //                         return (
+        //                             <tr key={index}>
+        //                                 {item.map((innerItem, innerIndex) => {
+        //                                     if (inputColour[index] === undefined) {
+        //                                         let inner = []
+        //                                         for (var qq = 0; qq < innerItem.length; qq++)
+        //                                             inner.push("#FFFFFF");
+        //                                         inputColour.push(inner);
+        //                                     }
+        //                                     var string = index + "_" + innerIndex
+        //                                     return (
+        //                                         <td key={string}
+        //                                             bgcolor={inputColour[index][innerIndex]}
+        //                                             style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+        //                                         >
+        //                                             {innerItem}
+        //                                         </td>
+        //                                     )
+        //                                 })}
+        //                             </tr>
+        //                         )
+        //                     })}
+        //                 </tbody>
+        //             </table>
+
+        //       </div>
+
+
+        //       <div className='col-md-6' align='center'>
+
+
+        //       <table style={{ 'margin': '20px' }}>
+        //                 <tbody>
+        //                     <tr key="column_number">
+        //                         {
+        //                             glcmArray[0].map((item, index) =>
+        //                                 <td key={index} style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+        //                             )
+        //                         }
+        //                     </tr>
+        //                     {glcmArray.map((item, index) => {
+        //                         return (
+        //                             <tr key={index}>
+        //                                 {item.map((innerItem, innerIndex) => {
+        //                                     var string = index + "_" + innerIndex
+        //                                     return (
+        //                                         <td key={string}
+        //                                             style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+        //                                             bgcolor={params.GlcmColour[index][innerIndex]}
+        //                                             onClick={() => changeColour(index, innerIndex)}
+        //                                         >
+        //                                             {innerItem}
+        //                                         </td>
+        //                                     )
+        //                                 })}
+        //                                 <td key="row_number" style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+        //                             </tr>
+        //                         )
+        //                     })}
+        //                 </tbody>
+        //             </table>
+
+        //        </div>
+
+        //     </div>
+        //   </div>
+        // </div>
+
+
+        /*
+                <div id="input">
+                    <div>
+                        <div>
+                            <button onClick={clearColour} className="btn btn-warning align-self-start">Reset</button>
+                        </div>
+                        <table style={{ 'margin': '20px' }}>
+                            <tbody>
+                                {params.randomMatrix.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            {item.map((innerItem, innerIndex) => {
+                                                if (inputColour[index] === undefined) {
+                                                    let inner = []
+                                                    for (var qq = 0; qq < innerItem.length; qq++)
+                                                        inner.push("#FFFFFF");
+                                                    inputColour.push(inner);
+                                                }
+                                                var string = index + "_" + innerIndex
+                                                return (
+                                                    <td key={string}
+                                                        bgcolor={inputColour[index][innerIndex]}
+                                                        style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+                                                    >
+                                                        {innerItem}
+                                                    </td>
+                                                )
+                                            })}
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='row justify-content-md-center p-5'>
+                        <table style={{ 'margin': '20px' }}>
+                            <tbody>
+                                <tr key="column_number">
+                                    {
+                                        glcmArray[0].map((item, index) =>
+                                            <td key={index} style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+                                        )
+                                    }
+                                </tr>
+                                {glcmArray.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            {item.map((innerItem, innerIndex) => {
+                                                var string = index + "_" + innerIndex
+                                                return (
+                                                    <td key={string}
+                                                        style={{ "borderWidth": "2px", 'borderColor': "#000000", 'borderStyle': 'solid', 'padding': '10px', 'margin': '0px' }}
+                                                        bgcolor={params.GlcmColour[index][innerIndex]}
+                                                        onClick={() => changeColour(index, innerIndex)}
+                                                    >
+                                                        {innerItem}
+                                                    </td>
+                                                )
+                                            })}
+                                            <td key="row_number" style={{ 'padding': '10px', 'margin': '0px' }}>{index + 1}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        */
+
+    )
 }
 
 export default Glcm;
