@@ -40,9 +40,9 @@ function App() {
   }
 
   var initialInputColour = []
-  for (var ii = 0; ii < rows; ii++) {
+  for (ii = 0; ii < rows; ii++) {
     let innerInputColour = []
-    for (var jj = 0; jj < cols; jj++) {
+    for (jj = 0; jj < cols; jj++) {
       innerInputColour.push("#FFFFFF");
     }
     initialInputColour.push(innerInputColour);

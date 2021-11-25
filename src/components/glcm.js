@@ -1,6 +1,17 @@
 import { useState } from "react";
 var Glcm = (params) => {
-    var [glcmArray, setGlcmArray] = useState([
+    // var [glcmArray, setGlcmArray] = useState([
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0]
+    // ]);
+
+    var glcmArray = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -9,7 +20,9 @@ var Glcm = (params) => {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0]
-    ]);
+    ];
+
+
     var [forceUpdate, setForceUpdate] = useState(0);
     var assign0 = () => {
         glcmArray = [
